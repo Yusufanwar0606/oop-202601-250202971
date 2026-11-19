@@ -10,9 +10,15 @@ import id.ac.upb.asetpinjam.model.Aset;
  * 0 hari = 0; tidak pernah lebih murah dari DendaFlat; tidak pernah turun saat hari bertambah.
  */
 public class DendaProgresif implements AturanDenda {
+private static final int BATAS_NORMAL = 3;
 
-    @Override
-    public long hitung(Aset aset, int hariTerlambat) {
-        throw new UnsupportedOperationException("TODO minggu 5: DendaProgresif.hitung");
-    }
+@Override
+public long hitung(Aset aset, int hariTerlambat) {
+ long flat = aset.hitungDenda(hariTerlambat);
+ if (hariTerlambat <= BATAS_NORMAL) {
+    return flat;
+}
+ long tambahan = aset.hitungDenda(hariTerlambat - BATAS_NORMAL) / 2;
+    return flat + tambahan;
+  }
 }
